@@ -5,6 +5,7 @@ public class Program01_SumOfArray {
         int[] arr = {1, 2, 3, 4};
         int sum = sumArray(arr);
         System.out.println(sum);
+        
         int multiple = multiply(5, 10);
         System.out.println(multiple);
     }
