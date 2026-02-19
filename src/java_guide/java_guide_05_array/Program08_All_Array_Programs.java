@@ -149,29 +149,109 @@ public class Program08_All_Array_Programs {
 
     private static void removeDuplicates(int[] arr) {
         List<Integer> mylist = new ArrayList<>();
-        for (int i = 0; i < arr.length ; i++) {
-            if(!mylist.contains(arr[i])){
+        for (int i = 0; i < arr.length; i++) {
+            if (!mylist.contains(arr[i])) {
                 mylist.add(arr[i]);
             }
         }
         System.out.println("Removed duplicate elements from the list : " + mylist);
     }
 
-    private static void findFirstDuplicate(int[] arr){
-        int temp =0;
-        for(int i =0; i< arr.length-1; i++){
-            for(int j =i+1; j< arr.length; j++){
-                if(arr[i] == arr[j]){
+    private static void findFirstDuplicate(int[] arr) {
+        int temp = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
                     System.out.println("first duplicate element is : " + arr[j]);
-                    temp =temp +1;
+                    temp = temp + 1;
                     break;
                 }
             }
-            if (temp > 0 ) {
+            if (temp > 0) {
                 break;
             }
         }
     }
+
+    private static void findMissingNumber(int[] arr) {
+        int n = arr.length + 1;
+        int allSum = n * (n + 1) / 2;
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            sum = sum + arr[i];
+        }
+        System.out.println("Missing number is : " + (allSum - sum));
+    }
+
+    private static void insertElement(int[] arr, int pos) {
+
+        for (int i = arr.length - 1; i > pos - 1; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[pos - 1] = 3;
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("new array after insertion is :" + arr[i]);
+        }
+    }
+
+    private static void deleteElement(int[] arr, int delete) {
+
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (delete == arr[i]) {
+                for (int j = i; j < arr.length - 1; j++) {
+                    arr[j] = arr[j + 1];
+                }
+                break;
+            }
+        }
+        for (int i = 0; i < arr.length - 1; i++) {
+            System.out.println("new array after deletion is :" + arr[i]);
+        }
+    }
+
+    private static void moveZerosToEnd(int[] arr) {
+        int index = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                arr[index] = arr[i];
+                index++;
+            }
+        }
+        while (index < arr.length) {
+            arr[index] = 0;
+            index++;
+        }
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("moving zeros to end :" + arr[i]);
+        }
+    }
+
+   private static void moveZerosToFront(int[] arr){
+    int[] temp =new int[arr.length];
+    int index = 0; // pointer for placing zero elements
+    
+    // Move all zeros to the front
+    for (int num: arr){
+        if (num == 0) {
+            index++;
+        }
+    }
+    
+    // Fill remaining positions with non-zero elements
+    for (int num : arr){
+        if (num != 0) {
+            temp[index] = num;
+            index++;
+        }
+    }
+    
+    // Print the result
+    for (int i = 0; i < temp.length; i++){
+        System.out.println("moving zeros to front :" + temp[i]);
+    }
+}
+
     public static void main(String[] args) {
         int[] arr = { 1, 4, 6, 2, 6, 7 };
         calSum(arr);
@@ -186,5 +266,15 @@ public class Program08_All_Array_Programs {
         findDuplicates(arr1);
         removeDuplicates(arr1);
         findFirstDuplicate(arr1);
+        int[] arr2 = { 1, 2, 4, 5 };
+        findMissingNumber(arr2);
+        int[] arr3 = { 1, 2, 4, 5 };
+        insertElement(arr3, 2);
+        int[] arr4 = { 1, 2, 4, 5 };
+        deleteElement(arr4, 2);
+        int[] arr5 = { 1, 0, 2, 0, 3, 0, 4, 5 };
+        moveZerosToEnd(arr5);
+        int[] arr6 = { 1, 0, 2, 0, 3, 0, 4, 5 };
+        moveZerosToFront(arr6);
     }
 }
