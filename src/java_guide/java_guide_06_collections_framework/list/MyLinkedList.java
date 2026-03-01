@@ -14,7 +14,7 @@
  *       - Not thread-safe.
  *      - Common methods: add(), remove(), get(), set(), size(), contains(), indexOf().
  * Usage:
- *   - Use LinkedList for frequent insertions/removals.
+ *  - Use LinkedList for frequent insertions/removals.
  *  - Use as a Queue (FIFO) or Deque (double-ended queue).
  *  - Avoid LinkedList for frequent random access.
  * 
@@ -36,7 +36,7 @@ public class MyLinkedList {
 
     public static void main(String[] args) {
         // Creating a LinkedList
-        List<String> list = new LinkedList<String>();
+        LinkedList<String> list = new LinkedList<String>();
 
         // Adding elements
         list.add("A");
