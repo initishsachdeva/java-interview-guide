@@ -325,6 +325,30 @@ public class Program015_StringWithHashmap {
         System.out.println("Strings are anagrams");
     }
     
+    private static void countLongestUniqueSubstr(String s) {
+        HashSet<Character> set = new HashSet<>();
+
+        int left = 0;
+        int maxLength = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+
+            // If duplicate found, shrink window
+            while (set.contains(s.charAt(right))) {
+                set.remove(s.charAt(left));
+                left++;
+            }
+
+            // Add current character
+            set.add(s.charAt(right));
+
+            // Update max length
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+        System.out.println("Count of longest substring without repeating characters: " + maxLength);
+    }
+
     private static void findLongestSubstringWithoutRepeatingCharacters(String str) {
         // Implementation to find the longest substring without repeating characters
         Map<Character, Integer> map = new HashMap<>();
@@ -345,6 +369,47 @@ public class Program015_StringWithHashmap {
             }
         }
         System.out.println("Longest substring without repeating characters: " + longestSubstring);
+    }
+
+    private static void findLongestSubstringWithoutRepeatingCharactersHashmap(String str) {
+        // Implementation to find the longest substring without repeating characters
+        Map<Character, Integer> map = new HashMap<>();
+        int left =0, right = 0;
+        int maxLength = 0;
+        String longestSubstring = "";
+        while (right < str.length()){
+            char currentChar = str.charAt(right);
+
+            if(map.containsKey(currentChar)){
+                int lastIndex = map.get(currentChar);
+                int newLeft = lastIndex + 1;
+                if(newLeft > left){
+                    left = newLeft; 
+                }
+            }
+
+            map.put(currentChar, right);
+            int currentWindowSize = right - left + 1;
+            if(currentWindowSize > maxLength){
+                maxLength = currentWindowSize;
+            }
+            right++;
+        }
+        System.out.println("max length of longest string is :" + maxLength);
+    }
+
+    private static void reverseSentence(String str){
+        // Implementation to reverse a sentence
+        if(str == null || str.isEmpty()) {
+            System.out.println("Input string is empty");
+            return;
+        }
+        String[] words = str.split(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int i = words.length - 1; i >= 0; i--) {
+            sb.append(words[i]).append(" ");
+        }
+        System.out.println("Reversed sentence: " + sb.toString().trim());
     }
     
     public static void main(String[] args) {
@@ -402,9 +467,24 @@ public class Program015_StringWithHashmap {
         String str9 = "silent";
         anagramCheck(str8, str9);
 
+         // Given String str to find the count of longest substring without repeating characters in a string
+        System.out.println("-----------------------------");
+        String str10 = "abdaa";
+        countLongestUniqueSubstr(str10);
+
         // Given String str to find the longest substring without repeating characters in a string
         System.out.println("-----------------------------");
-        String str10 = "abcabcbb";
-        findLongestSubstringWithoutRepeatingCharacters(str10);
+        String str11 = "abcabcbb";
+        findLongestSubstringWithoutRepeatingCharacters(str11);
+
+        System.out.println("-----------------------------");
+        findLongestSubstringWithoutRepeatingCharactersHashmap(str11);
+
+        // Given String str to reverse a sentence
+        System.out.println("-----------------------------");
+        String str12 = "SDET Java";
+        reverseSentence(str12);
+
+        
    }
 }

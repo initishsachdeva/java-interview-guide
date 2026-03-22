@@ -227,54 +227,201 @@ public class Program08_All_Array_Programs {
         }
     }
 
-   private static void moveZerosToFront(int[] arr){
-    int[] temp =new int[arr.length];
-    int index = 0; // pointer for placing zero elements
-    
-    // Move all zeros to the front
-    for (int num: arr){
-        if (num == 0) {
-            index++;
+    private static void moveZerosToFront(int[] arr) {
+        int[] temp = new int[arr.length];
+        int index = 0; // pointer for placing zero elements
+
+        // Move all zeros to the front
+        for (int num : arr) {
+            if (num == 0) {
+                index++;
+            }
+        }
+
+        // Fill remaining positions with non-zero elements
+        for (int num : arr) {
+            if (num != 0) {
+                temp[index] = num;
+                index++;
+            }
+        }
+
+        // Print the result
+        for (int i = 0; i < temp.length; i++) {
+            System.out.println("moving zeros to front :" + temp[i]);
         }
     }
-    
-    // Fill remaining positions with non-zero elements
-    for (int num : arr){
-        if (num != 0) {
-            temp[index] = num;
-            index++;
+
+    private static void sumOfSubArray(int[] arr) {
+        // using slider window technique
+        int k = 3;
+        int windowSum = 0;
+        for (int i = 0; i < k; i++) {
+            windowSum = windowSum + arr[i];
+        }
+        System.out.println("subarray sum is: " + windowSum);
+
+        for (int i = 1; i <= arr.length - k; i++) {
+            windowSum = windowSum - arr[i - 1] + arr[i + k - 1];
+            System.out.println("subarray sum is: " + windowSum);
         }
     }
-    
-    // Print the result
-    for (int i = 0; i < temp.length; i++){
-        System.out.println("moving zeros to front :" + temp[i]);
+
+    private static void avgOfSubArray(int[] arr) {
+        // using slider window technique
+        int k = 3;
+        int windowSum = 0, average = 0;
+        for (int i = 0; i < k; i++) {
+            windowSum = windowSum + arr[i];
+        }
+        average = windowSum / k;
+        System.out.println("subarray average is: " + average);
+
+        for (int i = 1; i <= arr.length - k; i++) {
+            windowSum = windowSum - arr[i - 1] + arr[i + k - 1];
+            average = windowSum / k;
+            System.out.println("subarray average is: " + average);
+        }
     }
-}
+
+    private static void maxSumSubArray(int[] arr) {
+        // using slider window technique
+        int k = 3;
+        int maxSum = 0, windowSum = 0;
+        for (int i = 0; i < k; i++) {
+            windowSum = windowSum + arr[i];
+        }
+        maxSum = windowSum;
+
+        for (int i = 1; i <= arr.length - k; i++) {
+            windowSum = windowSum - arr[i - 1] + arr[i + k - 1];
+            if (windowSum > maxSum) {
+                maxSum = windowSum;
+            }
+        }
+        System.out.println("maximum sum of subarray is: " + maxSum);
+
+    }
+
+    // Two pointer technique - works on linear data structures like Arrays and Strings and preference is array should be in sorted order.
+
+    private static void twoSumBrute(int[] arr){
+        //this is using brute force technique which result in time complexity of (On^2)
+        int targetSum = 10; 
+        boolean found = false;
+        for(int i = 0; i< arr.length-1; i++){
+            for(int j = i+1; j<arr.length; j++){
+                if(arr[i] + arr[j] == targetSum){
+                    System.out.println("target sum formed with elements at index :" + i +" " +  j );
+                    found = true;
+                }
+            }
+            if(found)
+                break;
+        }
+        if(found ==false)
+            System.out.println("Element not found");
+    }
+
+    private static void twoSumPointer(int[] arr){
+        //this is using two pointers technique
+        int left = 0;
+        int right = arr.length-1;
+        int targetSum = 10; 
+        boolean found = false;
+
+        while(left < right){
+            int sum = arr[left] + arr[right];
+            if(sum == targetSum){
+                System.out.println("Element found at index: " + left + " " + right);
+                right--;
+                left++;
+                found = true;
+            }
+            else if(sum > targetSum){
+                right --;
+            }
+            else{
+                left++;
+            }
+        }
+        if(!found)
+            System.out.println("Sum element not formed at any position");
+    }
+
 
     public static void main(String[] args) {
+        System.out.println("------------------" + "\n");
         int[] arr = { 1, 4, 6, 2, 6, 7 };
         calSum(arr);
+
+        System.out.println("------------------" + "\n");
         calAvg(arr);
+
+        System.out.println("------------------" + "\n");
         findMinNumber(arr);
+
+        System.out.println("------------------" + "\n");
         findMaxNumber(arr);
+
+        System.out.println("------------------" + "\n");
         findSecondLargest(arr);
+
+        System.out.println("------------------" + "\n");
         findSecondSmallest(arr);
+
+        System.out.println("------------------" + "\n");
         findkthLargest(arr);
+
+        System.out.println("------------------" + "\n");
         findkthSmallest(arr);
+
+        System.out.println("------------------" + "\n");
         int[] arr1 = { 2, 4, 6, 8, 1, 4, 5, 6 };
         findDuplicates(arr1);
+
+        System.out.println("------------------" + "\n");
         removeDuplicates(arr1);
+
+        System.out.println("------------------" + "\n");
         findFirstDuplicate(arr1);
+
+        System.out.println("------------------" + "\n");
         int[] arr2 = { 1, 2, 4, 5 };
         findMissingNumber(arr2);
+
+        System.out.println("------------------" + "\n");
         int[] arr3 = { 1, 2, 4, 5 };
         insertElement(arr3, 2);
+
+        System.out.println("------------------" + "\n");
         int[] arr4 = { 1, 2, 4, 5 };
         deleteElement(arr4, 2);
+
+        System.out.println("------------------" + "\n");
         int[] arr5 = { 1, 0, 2, 0, 3, 0, 4, 5 };
         moveZerosToEnd(arr5);
+
+        System.out.println("------------------" + "\n");
         int[] arr6 = { 1, 0, 2, 0, 3, 0, 4, 5 };
         moveZerosToFront(arr6);
+
+        System.out.println("------------------" + "\n");
+        int[] arr7 = { 100, 200, 300, 400, 500, 600, 700 };
+        sumOfSubArray(arr7);
+
+        System.out.println("------------------" + "\n");
+        avgOfSubArray(arr7);
+
+        System.out.println("------------------" + "\n");
+        maxSumSubArray(arr7);
+
+        System.out.println("------------------" + "\n");
+        int[] arr8 = {1,3,4,7,5}; 
+        twoSumBrute(arr8);
+
+        System.out.println("------------------" + "\n");
+        int[] arr9 = {1,2,3,4,7,8}; 
+        twoSumPointer(arr9);
     }
 }
