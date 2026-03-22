@@ -392,10 +392,13 @@ public class Program015_StringWithHashmap {
             int currentWindowSize = right - left + 1;
             if(currentWindowSize > maxLength){
                 maxLength = currentWindowSize;
+                longestSubstring = str.substring(left, right + 1);
+                
             }
             right++;
         }
         System.out.println("max length of longest string is :" + maxLength);
+        System.out.println("Longest substring: " + longestSubstring);
     }
 
     private static void reverseSentence(String str){
